@@ -38,7 +38,7 @@ const questions = [
 ];
 
 const questionElement = document.getElementById("question");
-const answerButton = document.getElementById("answer-buttons");
+const answerButtons = document.getElementById("answer-buttons");
 const nextButton = document.getElementById("next-btn");
 
 let currentQuestionIndex = 0;
@@ -55,7 +55,7 @@ function showQuestion() {
     resetState();
     let currentQuestion = questions[currentQuestionIndex];
     let questionNo = currentQuestionIndex + 1;
-    questionElement.innerHTML = questionNo + ". " + currentQuestion.question;
+    questionElement.innerHTML = questionNo + ". " + currentQuestion.questions;
 
     currentQuestion.answers.forEach(answer => {
         const button = document.createElement("button");
@@ -84,6 +84,14 @@ function resetState(){
         } else{
             selectedBtn.classList.add("incorrect");
         }
+        
+        Array.from(answerButtons.children).forEach(button => {
+            if (button.dataset.correct === "true") {
+                button.classList.add("correct");
+            }
+            button.disabled = true;
+        });
+        nextButton.style.display = "block";
     }
 
 startQuiz();
